@@ -35,7 +35,7 @@ prevButton.addEventListener('click', () => {
 async function fetchCharacters() {
   try {
     const response = await fetch(
-      `https://rickandmortyapi.com/api/character?page=${page}`,
+      `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`,
     );
     if (!response.ok) {
       throw new Error(response.status + 'Is not Ok.');
@@ -81,4 +81,5 @@ searchBar.addEventListener('submit', event => {
   );
   const searchQuery = searchBarInput.value;
   console.log(searchQuery);
+  fetchCharacters();
 });
