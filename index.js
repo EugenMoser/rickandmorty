@@ -15,18 +15,35 @@ let maxPage = 1;
 let page = 1;
 let searchQuery = '';
 
-//
+nextButton.addEventListener('click', () => {
+  cardContainer.innerHTML = '';
+  page++;
+  fetchCharacters();
+});
 
-const url = 'https://rickandmortyapi.com/api/character';
+prevButton.addEventListener('click', () => {
+  cardContainer.innerHTML = '';
+  if (page > 1) {
+    page--;
+    //prevButton.disabled = false;
+  } /*else if (page === 1) {
+    prevButton.disabled = true;
+  }*/
+  fetchCharacters();
+});
 
 async function fetchCharacters() {
   try {
-    const response = await fetch(url);
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character?page=${page}`,
+    );
     if (!response.ok) {
       throw new Error(response.status + 'Is not Ok.');
     }
     const data = await response.json();
-    console.log(data.results[0].name);
+    //console.log(data.results[0].name);
+
+    pagination.textContent = `${page} / ${data.info.pages}`;
 
     data.results.forEach(character => {
       const characterName = character.name;
@@ -41,14 +58,6 @@ async function fetchCharacters() {
         characterStatus,
         characterOcc,
         characterType,
-      );
-
-      console.log(
-        characterName,
-        characterImage,
-        characterStatus,
-        characterType,
-        characterOcc,
       );
     });
   } catch (error) {
