@@ -21,6 +21,17 @@ nextButton.addEventListener('click', () => {
   fetchCharacters();
 });
 
+prevButton.addEventListener('click', () => {
+  cardContainer.innerHTML = '';
+  if (page > 1) {
+    page--;
+    //prevButton.disabled = false;
+  } /*else if (page === 1) {
+    prevButton.disabled = true;
+  }*/
+  fetchCharacters();
+});
+
 async function fetchCharacters() {
   try {
     const response = await fetch(
@@ -31,6 +42,8 @@ async function fetchCharacters() {
     }
     const data = await response.json();
     //console.log(data.results[0].name);
+
+    pagination.textContent = `${page} / ${data.info.pages}`;
 
     data.results.forEach(character => {
       const characterName = character.name;
