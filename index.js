@@ -65,3 +65,20 @@ async function fetchCharacters() {
   }
 }
 fetchCharacters();
+
+//searchBar
+
+searchBar.addEventListener('submit', event => {
+  event.preventDefault();
+
+  // const searchBarInput = document.getElementsByClassName('search-bar__input');
+  // const searchQuery = searchBarInput[0].value;
+  // console.log(searchQuery);
+  // console.log(searchBarInput);
+
+  const searchBarInput = document.querySelector(
+    '[data-js="search-bar__input"]',
+  );
+  const searchQuery = searchBarInput.value;
+  console.log(searchQuery);
+});
